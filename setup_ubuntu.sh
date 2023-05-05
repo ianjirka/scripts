@@ -31,14 +31,23 @@ sudo apt-get update
 # Install PowerShell
 sudo apt-get install -y powershell
 
+if [[ $(grep microsoft-standard-WSL /proc/version) ]] ;then
+    # We are in WSL - don't install vscode (it is recommended to install on Windows and launch from WSL)
+    :
+else
+    # Install VS Code if not in WSL
+    # Instructions from [Microsoft](https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions)
+    sudo apt-get install wget gpg
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+    sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+    sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+    rm -f packages.microsoft.gpg
 
-# Install VS Code
-# Instructions from [Microsoft](https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions)
-sudo apt-get install wget gpg
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-rm -f packages.microsoft.gpg
+    sudo apt update
+    sudo apt install code
+fi
+
+
 
 # Install wslu to be able to launch web browser from WSL2
 # Instructions from [StackOverflow](https://superuser.com/a/1368878)
