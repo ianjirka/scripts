@@ -11,6 +11,7 @@ To get started, run the Ubuntu setup script from this repo.
 ```bash
 curl -L https://raw.githubusercontent.com/ianjirka/scripts/main/setup_ubuntu.sh | bash
 ```
+
 ### Option 2 : Sync repo locally and run
 
 ```bash

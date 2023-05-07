@@ -52,3 +52,15 @@ fi
 # Install wslu to be able to launch web browser from WSL2
 # Instructions from [StackOverflow](https://superuser.com/a/1368878)
 sudo apt-get install -y wslu
+
+cd ~
+gh auth login
+
+if [ ! -f ".dotfiles"]; then
+    git clone https://github.com/ianjirka/dotfiles.git .dotfiles
+    .dotfiles/setup.sh
+fi
+
+if [ ! -f "scripts"]; then
+    git clone https://github.com/ianjirka/scripts.git scripts
+fi
