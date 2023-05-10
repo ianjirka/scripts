@@ -56,11 +56,11 @@ sudo apt-get install -y wslu
 cd ~
 gh auth login
 
-if [ ! -f ".dotfiles"]; then
+if [ ! -f ".dotfiles" ]; then
     git clone https://github.com/ianjirka/dotfiles.git .dotfiles
     .dotfiles/setup.sh
 fi
 
-if [ ! -f "scripts"]; then
+if [ ! -f "scripts" ]; then
     git clone https://github.com/ianjirka/scripts.git scripts
 fi
